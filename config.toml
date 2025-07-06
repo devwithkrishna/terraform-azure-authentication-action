@@ -1,0 +1,7 @@
+[keyvault]
+name = "ARCHITECTS-KEYVAULT"
+
+[secrets]
+ARM_TENANT_ID="ARM-TENANT-ID"
+ARM_CLIENT_ID="withtf-id"
+ARM_CLIENT_SECRET="withtf-password"

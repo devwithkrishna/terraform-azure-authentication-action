@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "terraform-azure-authentication-action"
+version = "0.1.0"
+description = "An action to set the Terraform Envrionment variables to access Azure"
+authors = ["githubofkrishnadhas <krishnadhasnk1997@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-dotenv = "^1.0.0"
+azure-identity = "^1.12.0"
+azure-keyvault-secrets = "^4.7.0"
+toml = "^0.10.2"
+pyyaml = "^6.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

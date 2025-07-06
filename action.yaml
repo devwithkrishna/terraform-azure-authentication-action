@@ -1,0 +1,39 @@
+
+name: 'Terraform Azure Authentication Action '
+description: 'An action to set the Terraform Envrionment variables to access Azure'
+author: 'githubofkrishnadhas'
+# reference https://haya14busa.github.io/github-action-brandings/
+branding:
+  icon: 'cloud-lightning'
+  color: 'green'
+
+runs:
+  using: 'composite'
+  steps:
+
+  - name: Checkout
+    uses: actions/checkout@v4
+    with:
+      repository: 'devwithkrishna/terraform-azure-authentication-action'
+
+  - name: list files
+    shell: bash
+    run: |
+      echo "Listing files in the current directory:"
+      ls -la
+
+  - name: Install Python
+    uses: actions/setup-python@v5
+    with:
+      python-version: '3.11'
+
+  - name: package installations
+    shell: bash
+    run: |
+      pip install poetry
+      poetry install -v --no-root --no-interaction
+
+  - name: Run Python program
+    shell: bash
+    run: |
+      poetry run python3 fetch_kv_secret.py
