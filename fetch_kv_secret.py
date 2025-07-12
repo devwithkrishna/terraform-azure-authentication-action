@@ -53,6 +53,35 @@ def fetch_kv_secret():
         # Set the secret value as an environment variable
         os.environ[key] = get_secret.value
 
+    return secrets
+
+def set_github_env_variables(secrets):
+	"""
+    Sets GitHub environment variables using workflow commands.
+
+    This function takes a dictionary of secrets, sanitizes the keys to make them
+    compatible with GitHub environment variable naming conventions, and writes
+    them to the `GITHUB_ENV` file to be used as environment variables in a GitHub
+    Actions workflow.
+
+    Args:
+        secrets (dict): A dictionary where keys are secret names and values are
+                        the corresponding secret values.
+
+    Raises:
+        FileNotFoundError: If the `GITHUB_ENV` file is not found.
+    """
+	logger = logging.getLogger(__name__)
+	github_env_file = os.getenv('GITHUB_ENV')
+	with open(github_env_file, 'a') as f:
+		for key, value in secrets.items():
+			if value is not None:
+					# Sanitize the key name to be compatible with GitHub env vars
+				env_key = key.replace('-', '_').upper()
+					# Use workflow command to set environment variable
+				f.write(f"{env_key}={value}\n")
+				logger.warning(f"Set environment variable: {env_key}")
+
 
 def main():
 	"""
@@ -62,7 +91,8 @@ def main():
 	setup_logging()
 	logger = logging.getLogger(__name__)
 	logger.info("Starting to fetch secrets from Azure Key Vault")
-	fetch_kv_secret()
+	secrets = fetch_kv_secret()
+	set_github_env_variables(secrets)
 	logger.info("Finished fetching secrets from Azure Key Vault")
 
 if __name__ == "__main__":
