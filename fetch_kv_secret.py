@@ -78,6 +78,7 @@ def set_github_env_variables(secrets):
 	print(f"::add-mask::{secrets['ARM_TENANT_ID']}")
 	print(f"::add-mask::{secrets['ARM_CLIENT_ID']}")
 	print(f"::add-mask::{secrets['ARM_CLIENT_SECRET']}")
+	print(f"::add-mask::{secrets['ARM_SUBSCRIPTION_ID']}")
 
 	with open(github_env_file, 'a') as f:
 		for key, value in secrets.items():
