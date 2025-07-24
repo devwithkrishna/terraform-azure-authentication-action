@@ -73,6 +73,12 @@ def set_github_env_variables(secrets):
     """
 	logger = logging.getLogger(__name__)
 	github_env_file = os.getenv('GITHUB_ENV')
+
+	# Mask values in GitHub logs
+	print(f"::add-mask::{secrets['ARM_TENANT_ID']}")
+	print(f"::add-mask::{secrets['ARM_CLIENT_ID']}")
+	print(f"::add-mask::{secrets['ARM_CLIENT_SECRET']}")
+
 	with open(github_env_file, 'a') as f:
 		for key, value in secrets.items():
 			if value is not None:
